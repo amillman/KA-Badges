@@ -21,6 +21,7 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *rootViewController = [[KABBadgesViewController alloc] init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    self.window.rootViewController = rootViewController;
     [self.window addSubview:navigationController.view];
     [self.window makeKeyAndVisible];
     

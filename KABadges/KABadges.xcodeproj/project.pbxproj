@@ -13,6 +13,7 @@
 		27BDF9721A99506E00E1DCC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27BDF9711A99506E00E1DCC8 /* Images.xcassets */; };
 		27BDF9811A99506E00E1DCC8 /* KABadgesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9801A99506E00E1DCC8 /* KABadgesTests.m */; };
 		27BDF98C1A99634400E1DCC8 /* KABBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF98B1A99634400E1DCC8 /* KABBadge.m */; };
+		27BDF98F1A99669800E1DCC8 /* KABBadgesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF98E1A99669800E1DCC8 /* KABBadgesView.m */; };
 		FA2F0C373D2D421BFFE2BE59 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DA16647D160F7957FD1695D /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +41,8 @@
 		27BDF9801A99506E00E1DCC8 /* KABadgesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KABadgesTests.m; sourceTree = "<group>"; };
 		27BDF98A1A99634400E1DCC8 /* KABBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KABBadge.h; sourceTree = "<group>"; };
 		27BDF98B1A99634400E1DCC8 /* KABBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KABBadge.m; sourceTree = "<group>"; };
+		27BDF98D1A99669800E1DCC8 /* KABBadgesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KABBadgesView.h; sourceTree = "<group>"; };
+		27BDF98E1A99669800E1DCC8 /* KABBadgesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KABBadgesView.m; sourceTree = "<group>"; };
 		60E58AA8D98CCF7AA4688FC9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7DA16647D160F7957FD1695D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C494440FD4D964850BEFEADC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				27BDF9691A99506E00E1DCC8 /* KABAppDelegate.m */,
 				27BDF96B1A99506E00E1DCC8 /* KABBadgesViewController.h */,
 				27BDF96C1A99506E00E1DCC8 /* KABBadgesViewController.m */,
+				27BDF98D1A99669800E1DCC8 /* KABBadgesView.h */,
+				27BDF98E1A99669800E1DCC8 /* KABBadgesView.m */,
 				27BDF98A1A99634400E1DCC8 /* KABBadge.h */,
 				27BDF98B1A99634400E1DCC8 /* KABBadge.m */,
 				27BDF9711A99506E00E1DCC8 /* Images.xcassets */,
@@ -275,6 +280,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27BDF98F1A99669800E1DCC8 /* KABBadgesView.m in Sources */,
 				27BDF96D1A99506E00E1DCC8 /* KABBadgesViewController.m in Sources */,
 				27BDF96A1A99506E00E1DCC8 /* KABAppDelegate.m in Sources */,
 				27BDF98C1A99634400E1DCC8 /* KABBadge.m in Sources */,

@@ -7,12 +7,17 @@
 //
 
 #import "KABBadgesViewController.h"
+#import "KABBadgesView.h"
 
 @interface KABBadgesViewController ()
-
+@property (strong, nonatomic) KABBadgesView *view;
 @end
 
 @implementation KABBadgesViewController
+
+- (void)loadView {
+    self.view = [[KABBadgesView alloc] init];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
