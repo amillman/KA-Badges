@@ -10,4 +10,5 @@
 
 @interface KABBadgesView : UIView
 @property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIActivityIndicatorView *indicatorView;
 @end

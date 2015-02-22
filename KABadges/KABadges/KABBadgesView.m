@@ -8,6 +8,7 @@
 
 #import "KABBadgesView.h"
 #import "Masonry.h"
+#import "KABConstants.h"
 
 @implementation KABBadgesView
 
@@ -22,16 +23,28 @@
 }
 
 - (void)createSubviews {
+    
     _tableView = [[UITableView alloc] init];
+    _tableView.tableFooterView = [[UIView alloc] init];
     [self addSubview:_tableView];
+    
+    _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [_indicatorView startAnimating];
+    [self addSubview:_indicatorView];
 }
 
 - (void)updateConstraints {
+    
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(@0);
+    }];
+    
+    [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(NAVBAR_HEIGHT + STANDARD_MARGIN * 2));
+        make.centerX.equalTo(self.mas_centerX);
     }];
     
     [super updateConstraints];

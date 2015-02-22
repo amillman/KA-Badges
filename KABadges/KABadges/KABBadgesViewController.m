@@ -81,6 +81,7 @@ static NSString *cellIdentifier = @"Badge";
             [correspondingCategory.badges addObject:badge];
         }
         [self.view.tableView reloadData];
+        [self.view.indicatorView stopAnimating];
     } failure:nil];
     
 }
