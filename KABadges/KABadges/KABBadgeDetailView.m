@@ -33,6 +33,7 @@
     [self addSubview:_scrollView];
     
     _headerView = [[UIView alloc] init];
+    _headerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7];
     [_scrollView addSubview:_headerView];
     
     _iconView = [[UIImageView alloc] init];
@@ -42,6 +43,7 @@
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.font = [UIFont boldSystemFontOfSize:30.0];
     _nameLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _nameLabel.numberOfLines = 0; // Dynamic height
     [_headerView addSubview:_nameLabel];
@@ -52,6 +54,7 @@
     
     _categoryLabel = [[UILabel alloc] init];
     _categoryLabel.font = [UIFont boldSystemFontOfSize:24.0];
+    _categoryLabel.textAlignment = NSTextAlignmentCenter;
     _categoryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _categoryLabel.numberOfLines = 0; // Dynamic height
     [_scrollView addSubview:_categoryLabel];
@@ -76,9 +79,41 @@
         make.bottom.equalTo(@0);
     }];
     
-    [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(NAVBAR_HEIGHT + STANDARD_MARGIN * 2));
-        make.centerX.equalTo(self.mas_centerX);
+    [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(NAVBAR_HEIGHT));
+        make.leading.equalTo(@0);
+        make.trailing.equalTo(@0);
+        make.height.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+    }];
+    
+    [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(STANDARD_MARGIN));
+        make.centerX.equalTo(_headerView.mas_centerX);
+        make.height.equalTo(@256);
+        make.width.equalTo(@256);
+    }];
+    
+    [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_iconView.mas_bottom).with.offset(STANDARD_MARGIN * 2);
+        make.leading.equalTo(@(STANDARD_MARGIN));
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
+    }];
+    
+    [_pointValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(_nameLabel.mas_bottom);
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
+    }];
+    
+    [_categoryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.leading.equalTo(@(STANDARD_MARGIN));
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
+    }];
+    
+    [_detailsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.leading.equalTo(@(STANDARD_MARGIN));
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
     }];
     
     [super updateConstraints];
