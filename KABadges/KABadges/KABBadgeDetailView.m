@@ -52,20 +52,6 @@
     _nameLabel.numberOfLines = 0; // Dynamic height
     [_headerView addSubview:_nameLabel];
     
-    _pointValueLabel = [[UILabel alloc] init];
-    _pointValueLabel.font = [UIFont boldSystemFontOfSize:20.0];
-    _pointValueLabel.backgroundColor = [UIColor whiteColor];
-    _pointValueLabel.textAlignment = NSTextAlignmentCenter;
-    _pointValueLabel.layer.cornerRadius = LABEL_CORNER_RADIUS;
-    _pointValueLabel.layer.masksToBounds = YES;
-    [_scrollView addSubview:_pointValueLabel];
-    
-    _pointsWordLabel = [[UILabel alloc] init];
-    _pointsWordLabel.text = @"pts";
-    _pointsWordLabel.font = [UIFont boldSystemFontOfSize:20.0];
-    _pointsWordLabel.textColor = [UIColor whiteColor];
-    [_scrollView addSubview:_pointsWordLabel];
-    
     _categoryLabel = [[UILabel alloc] init];
     _categoryLabel.font = [UIFont systemFontOfSize:14.0];
     _categoryLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
@@ -80,6 +66,20 @@
     _detailsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _detailsLabel.numberOfLines = 0; // Dynamic height
     [_scrollView addSubview:_detailsLabel];
+    
+    _pointValueLabel = [[UILabel alloc] init];
+    _pointValueLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    _pointValueLabel.backgroundColor = [UIColor whiteColor];
+    _pointValueLabel.textAlignment = NSTextAlignmentCenter;
+    _pointValueLabel.layer.cornerRadius = LABEL_CORNER_RADIUS;
+    _pointValueLabel.layer.masksToBounds = YES;
+    [_scrollView addSubview:_pointValueLabel];
+    
+    _pointsWordLabel = [[UILabel alloc] init];
+    _pointsWordLabel.text = @"pts";
+    _pointsWordLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    _pointsWordLabel.textColor = [UIColor whiteColor];
+    [_scrollView addSubview:_pointsWordLabel];
 }
 
 - (void)updateConstraints {
@@ -111,17 +111,6 @@
         make.trailing.equalTo(@(-STANDARD_MARGIN));
     }];
     
-    [_pointValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
-        make.leading.equalTo(@(STANDARD_MARGIN));
-        make.width.equalTo(@(90));
-    }];
-    
-    [_pointsWordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_pointValueLabel);
-        make.leading.equalTo(_pointValueLabel.mas_trailing).with.offset(STANDARD_MARGIN);
-    }];
-    
     [_categoryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_nameLabel.mas_bottom);
         make.leading.equalTo(@(STANDARD_MARGIN));
@@ -129,10 +118,21 @@
     }];
     
     [_detailsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_pointValueLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.centerX.equalTo(self.mas_centerX);
+    }];
+    
+    [_pointValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_detailsLabel.mas_bottom).with.offset(STANDARD_MARGIN * 2);
+        make.leading.equalTo(@(STANDARD_MARGIN));
+        make.width.equalTo(@(90));
+    }];
+    
+    [_pointsWordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_pointValueLabel);
+        make.leading.equalTo(_pointValueLabel.mas_trailing).with.offset(STANDARD_MARGIN);
     }];
     
     [super updateConstraints];
