@@ -36,18 +36,11 @@
     
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.font = [UIFont systemFontOfSize:18.0];
-    _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _nameLabel.numberOfLines = 0; // Dynamic Label sizes
     [self addSubview:_nameLabel];
-    
-    _categoryLabel = [[UILabel alloc] init];
-    _categoryLabel.font = [UIFont systemFontOfSize:14.0];
-    _categoryLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    _categoryLabel.numberOfLines = 0; // Dynamic Label sizes
-    [self addSubview:_categoryLabel];
     
     _pointValueLabel = [[UILabel alloc] init];
     _pointValueLabel.font = [UIFont systemFontOfSize:14.0];
+    _pointValueLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
     [self addSubview:_pointValueLabel];
 }
 
@@ -56,24 +49,21 @@
     [_photoView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.top.equalTo(@(STANDARD_MARGIN));
-        make.width.equalTo(@(50.0f));
-        make.height.equalTo(@(50.0f));
+        make.width.equalTo(@(40.0f));
+        make.height.equalTo(@(40.0f));
     }];
     
     [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_photoView.mas_trailing).with.offset(STANDARD_MARGIN);
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.top.equalTo(_photoView.mas_top);
     }];
     
-    [_categoryLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+    [_pointValueLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_nameLabel.mas_leading);
         make.top.equalTo(_nameLabel.mas_bottom);
     }];
     
-    [_pointValueLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(@(-STANDARD_MARGIN));
-        make.top.equalTo(@(STANDARD_MARGIN));
-    }];
     
     [super updateConstraints];
 }

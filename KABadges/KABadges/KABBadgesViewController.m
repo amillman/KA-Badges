@@ -72,7 +72,7 @@ static NSString *cellIdentifier = @"Badge";
             badge.pointValue = badgeJSON[@"points"];
             
             NSDictionary *iconDictionary = badgeJSON[@"icons"];
-            badge.smallIconURL = [NSURL URLWithString:iconDictionary[@"compact"]];
+            badge.smallIconURL = [NSURL URLWithString:iconDictionary[@"email"]];
             badge.largeIconURL = [NSURL URLWithString:iconDictionary[@"large"]];
             
             KABCategory *correspondingCategory = self.categories[[badge.badgeCategory intValue]];
@@ -116,7 +116,6 @@ static NSString *cellIdentifier = @"Badge";
     KABCategory *category = self.categories[indexPath.section];
     KABBadge *badge = category.badges[indexPath.row];
     cellView.nameLabel.text = badge.name;
-    cellView.categoryLabel.text = category.name;
     cellView.pointValueLabel.text = [NSString stringWithFormat:@"%@ points", [badge.pointValue stringValue]];
     
     __weak __typeof(cellView.photoView)weakPhotoView = cellView.photoView;

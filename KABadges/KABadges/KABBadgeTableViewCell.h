@@ -11,6 +11,5 @@
 @interface KABBadgeTableViewCell : UITableViewCell
 @property (strong, nonatomic) UIImageView *photoView;
 @property (strong, nonatomic) UILabel *nameLabel;
-@property (strong, nonatomic) UILabel *categoryLabel;
 @property (strong, nonatomic) UILabel *pointValueLabel;
 @end
