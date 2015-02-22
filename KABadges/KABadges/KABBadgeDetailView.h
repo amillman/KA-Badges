@@ -11,7 +11,6 @@
 #import "KABCategory.h"
 
 @interface KABBadgeDetailView : UIView
-@property (strong, nonatomic) UIActivityIndicatorView *indicatorView;
 @property (strong, nonatomic) UIImageView *iconView;
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *categoryLabel;

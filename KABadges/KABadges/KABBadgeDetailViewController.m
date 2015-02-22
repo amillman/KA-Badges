@@ -16,6 +16,10 @@
     self.view = [[KABBadgeDetailView alloc] init];
 }
 
+- (void)viewDidLoad {
+    self.navigationItem.title = self.badge.name;
+}
+
 #pragma mark - Lazy Instantiation
 
 - (KABBadge *)badge {

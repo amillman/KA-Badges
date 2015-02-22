@@ -15,6 +15,7 @@
 @interface KABBadgeDetailView ()
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *headerView;
+@property (strong, nonatomic) UIView *topView;
 @end
 
 @implementation KABBadgeDetailView
@@ -73,10 +74,6 @@
     _detailsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _detailsLabel.numberOfLines = 0; // Dynamic height
     [_scrollView addSubview:_detailsLabel];
-    
-    _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [_indicatorView startAnimating];
-    [self addSubview:_indicatorView];
 }
 
 - (void)updateConstraints {
