@@ -29,6 +29,9 @@
     
     [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
+    // Set white background color
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    
     return YES;
 }
 

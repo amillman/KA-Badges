@@ -32,6 +32,8 @@ static NSString *cellIdentifier = @"Badge";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitleImage"]];
+    
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
     
