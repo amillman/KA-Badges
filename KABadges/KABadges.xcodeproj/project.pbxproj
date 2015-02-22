@@ -49,6 +49,7 @@
 		27BDF9911A998CA500E1DCC8 /* KABCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KABCategory.m; sourceTree = "<group>"; };
 		27BDF9931A99945C00E1DCC8 /* KABBadgeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KABBadgeTableViewCell.h; sourceTree = "<group>"; };
 		27BDF9941A99945C00E1DCC8 /* KABBadgeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KABBadgeTableViewCell.m; sourceTree = "<group>"; };
+		27BDF99A1A9996E600E1DCC8 /* KABConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KABConstants.h; sourceTree = "<group>"; };
 		60E58AA8D98CCF7AA4688FC9 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7DA16647D160F7957FD1695D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C494440FD4D964850BEFEADC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -111,6 +112,7 @@
 				27BDF9691A99506E00E1DCC8 /* KABAppDelegate.m */,
 				27BDF9711A99506E00E1DCC8 /* Images.xcassets */,
 				27BDF9641A99506E00E1DCC8 /* Supporting Files */,
+				27BDF99A1A9996E600E1DCC8 /* KABConstants.h */,
 			);
 			path = KABadges;
 			sourceTree = "<group>";

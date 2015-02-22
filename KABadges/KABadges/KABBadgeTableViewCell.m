@@ -7,6 +7,7 @@
 //
 
 #import "KABBadgeTableViewCell.h"
+#import "KABConstants.h"
 
 @implementation KABBadgeTableViewCell
 
