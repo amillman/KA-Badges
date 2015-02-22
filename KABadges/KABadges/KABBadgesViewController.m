@@ -1,18 +1,18 @@
 //
-//  ViewController.m
+//  KABBadgesViewController.m
 //  KABadges
 //
 //  Created by Andrew on 2/21/15.
 //  Copyright (c) 2015 Andrew Millman. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "KABBadgesViewController.h"
 
-@interface ViewController ()
+@interface KABBadgesViewController ()
 
 @end
 
-@implementation ViewController
+@implementation KABBadgesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

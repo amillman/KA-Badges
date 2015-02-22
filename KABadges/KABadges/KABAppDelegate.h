@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  KABAppDelegate.h
 //  KABadges
 //
 //  Created by Andrew on 2/21/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface KABAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

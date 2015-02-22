@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  KABBadgesViewController.h
 //  KABadges
 //
 //  Created by Andrew on 2/21/15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface KABBadgesViewController : UIViewController
 
 
 @end

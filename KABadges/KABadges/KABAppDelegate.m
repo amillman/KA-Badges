@@ -1,22 +1,28 @@
 //
-//  AppDelegate.m
+//  KABAppDelegate.m
 //  KABadges
 //
 //  Created by Andrew on 2/21/15.
 //  Copyright (c) 2015 Andrew Millman. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "KABAppDelegate.h"
+#import "KABBadgesViewController.h"
 
-@interface AppDelegate ()
+@interface KABAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation KABAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    self.window.rootViewController = [[KABBadgesViewController alloc] init];
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
