@@ -19,9 +19,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    self.window.rootViewController = [[KABBadgesViewController alloc] init];
+    UIViewController *rootViewController = [[KABBadgesViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    [self.window addSubview:navigationController.view];
     [self.window makeKeyAndVisible];
-    
     
     return YES;
 }
