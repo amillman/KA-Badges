@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  UIColor+KABColors.h
 //  KABadges
 //
 //  Created by Andrew on 2/21/15.
@@ -8,10 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
-
+@interface UIColor (KABColors)
++ (UIColor *)kab_mainColor;
 @end
-
