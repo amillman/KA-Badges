@@ -7,7 +7,12 @@
 //
 
 #import "KABBadgeDetailViewController.h"
+#import "KABBadgeDetailView.h"
 
 @implementation KABBadgeDetailViewController
+
+- (void)loadView {
+    self.view = [[KABBadgeDetailView alloc] init];
+}
 
 @end
