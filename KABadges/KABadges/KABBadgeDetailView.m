@@ -95,11 +95,11 @@
         make.top.equalTo(@0);
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
-        make.bottom.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.bottom.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN * 2);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(STANDARD_MARGIN));
+        make.top.equalTo(@(STANDARD_MARGIN * 2));
         make.centerX.equalTo(_headerView.mas_centerX);
         make.height.equalTo(@200);
         make.width.equalTo(@200);
@@ -118,7 +118,7 @@
     }];
     
     [_detailsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN * 2);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.centerX.equalTo(self.mas_centerX);
