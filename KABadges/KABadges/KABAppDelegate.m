@@ -8,6 +8,8 @@
 
 #import "KABAppDelegate.h"
 #import "KABBadgesViewController.h"
+#import "AFNetworking.h"
+#import "AFNetworkActivityIndicatorManager.h"
 
 @interface KABAppDelegate ()
 
@@ -24,6 +26,8 @@
     self.window.rootViewController = rootViewController;
     [self.window addSubview:navigationController.view];
     [self.window makeKeyAndVisible];
+    
+    [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     
     return YES;
 }

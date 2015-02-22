@@ -14,7 +14,7 @@
 @property (strong, nonatomic) NSString *details;
 @property (strong, nonatomic) NSURL *smallIconURL;
 @property (strong, nonatomic) NSURL *largeIconURL;
-@property (nonatomic) NSInteger badgeCategory;
-@property (nonatomic) NSInteger pointValue;
+@property (strong, nonatomic) NSNumber *badgeCategory;
+@property (strong, nonatomic) NSNumber *pointValue;
 
 @end
