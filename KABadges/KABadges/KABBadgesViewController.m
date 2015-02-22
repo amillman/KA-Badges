@@ -122,12 +122,7 @@ static NSString *cellIdentifier = @"Badge";
     cellView.nameLabel.text = badge.name;
     cellView.detailsLabel.text = badge.details;
     cellView.pointValueLabel.text = [NSString stringWithFormat:@"%@ points", [badge.pointValue stringValue]];
-    
-    __weak __typeof(cellView.photoView)weakPhotoView = cellView.photoView;
-    [cellView.photoView setImageWithURLRequest:[NSURLRequest requestWithURL:badge.smallIconURL] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        __weak __typeof(weakPhotoView)strongPhotoView = weakPhotoView;
-        strongPhotoView.image = image;
-    } failure:nil];
+    [cellView.photoView setImageWithURL:badge.smallIconURL];
     
     return cellView;
 }
