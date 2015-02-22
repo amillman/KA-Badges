@@ -120,6 +120,7 @@ static NSString *cellIdentifier = @"Badge";
     KABCategory *category = self.categories[indexPath.section];
     KABBadge *badge = category.badges[indexPath.row];
     cellView.nameLabel.text = badge.name;
+    cellView.detailsLabel.text = badge.details;
     cellView.pointValueLabel.text = [NSString stringWithFormat:@"%@ points", [badge.pointValue stringValue]];
     
     __weak __typeof(cellView.photoView)weakPhotoView = cellView.photoView;
@@ -132,7 +133,7 @@ static NSString *cellIdentifier = @"Badge";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 95;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

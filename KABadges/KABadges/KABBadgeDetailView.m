@@ -15,7 +15,7 @@
 @interface KABBadgeDetailView ()
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *headerView;
-@property (strong, nonatomic) UIView *topView;
+@property (strong, nonatomic) UILabel *pointsWordLabel;
 @end
 
 @implementation KABBadgeDetailView
@@ -58,7 +58,13 @@
     _pointValueLabel.textAlignment = NSTextAlignmentCenter;
     _pointValueLabel.layer.cornerRadius = LABEL_CORNER_RADIUS;
     _pointValueLabel.layer.masksToBounds = YES;
-    [_headerView addSubview:_pointValueLabel];
+    [_scrollView addSubview:_pointValueLabel];
+    
+    _pointsWordLabel = [[UILabel alloc] init];
+    _pointsWordLabel.text = @"pts";
+    _pointsWordLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    _pointsWordLabel.textColor = [UIColor whiteColor];
+    [_scrollView addSubview:_pointsWordLabel];
     
     _categoryLabel = [[UILabel alloc] init];
     _categoryLabel.font = [UIFont systemFontOfSize:14.0];
@@ -107,8 +113,13 @@
     
     [_pointValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
-        make.trailing.equalTo(@(-STANDARD_MARGIN));
+        make.leading.equalTo(@(STANDARD_MARGIN));
         make.width.equalTo(@(90));
+    }];
+    
+    [_pointsWordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_pointValueLabel);
+        make.leading.equalTo(_pointValueLabel.mas_trailing).with.offset(STANDARD_MARGIN);
     }];
     
     [_categoryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
