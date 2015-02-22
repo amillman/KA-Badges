@@ -8,7 +8,9 @@
 
 #import "KABBadgesViewController.h"
 #import "KABBadgesView.h"
+#import "KABBadgeTableViewCell.h"
 #import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 #import "KABCategory.h"
 #import "KABBadge.h"
 
@@ -50,8 +52,8 @@ static NSString *cellIdentifier = @"Badge";
             category.name = categoryJSON[@"type_label"];
             category.details = categoryJSON[@"translated_description"];
             category.categoryNumber = categoryJSON[@"category"];
-            category.smallIconURL = categoryJSON[@"compact_icon_src"];
-            category.largeIconURL = categoryJSON[@"large_icon_src"];
+            category.smallIconURL = [NSURL URLWithString:categoryJSON[@"compact_icon_src"]];
+            category.largeIconURL = [NSURL URLWithString:categoryJSON[@"large_icon_src"]];
             
             [self.categories addObject:category];
         }
@@ -70,8 +72,8 @@ static NSString *cellIdentifier = @"Badge";
             badge.pointValue = badgeJSON[@"points"];
             
             NSDictionary *iconDictionary = badgeJSON[@"icons"];
-            badge.smallIconURL = iconDictionary[@"compact"];
-            badge.largeIconURL = iconDictionary[@"large"];
+            badge.smallIconURL = [NSURL URLWithString:iconDictionary[@"compact"]];
+            badge.largeIconURL = [NSURL URLWithString:iconDictionary[@"large"]];
             
             KABCategory *correspondingCategory = self.categories[[badge.badgeCategory intValue]];
             [correspondingCategory.badges addObject:badge];
@@ -100,24 +102,34 @@ static NSString *cellIdentifier = @"Badge";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cellView = nil;
+    KABBadgeTableViewCell *cellView = nil;
         
     cellView = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    [cellView.photoView cancelImageRequestOperation];
+    cellView.photoView.image = nil;
     
     if (!cellView) {
-        cellView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cellView = [[KABBadgeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                               reuseIdentifier:cellIdentifier];
     }
     
     KABCategory *category = self.categories[indexPath.section];
     KABBadge *badge = category.badges[indexPath.row];
-    cellView.textLabel.text = badge.name;
+    cellView.nameLabel.text = badge.name;
+    cellView.categoryLabel.text = category.name;
+    cellView.pointValueLabel.text = [NSString stringWithFormat:@"%@ points", [badge.pointValue stringValue]];
+    
+    __weak __typeof(cellView.photoView)weakPhotoView = cellView.photoView;
+    [cellView.photoView setImageWithURLRequest:[NSURLRequest requestWithURL:badge.smallIconURL] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        __weak __typeof(weakPhotoView)strongPhotoView = weakPhotoView;
+        strongPhotoView.image = image;
+    } failure:nil];
     
     return cellView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 44;
+    return 60;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

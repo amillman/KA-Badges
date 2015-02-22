@@ -9,6 +9,7 @@
 #import "KABBadgeTableViewCell.h"
 #import "Masonry.h"
 #import "KABConstants.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation KABBadgeTableViewCell
 
@@ -21,6 +22,10 @@
         [self setNeedsUpdateConstraints];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self.photoView cancelImageRequestOperation];
 }
 
 - (void)createSubviews {
@@ -51,22 +56,22 @@
     [_photoView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.top.equalTo(@(STANDARD_MARGIN));
-        make.width.equalTo(@(30.0f));
-        make.height.equalTo(@(30.0f));
+        make.width.equalTo(@(50.0f));
+        make.height.equalTo(@(50.0f));
     }];
     
     [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.leading.equalTo(_nameLabel.mas_trailing).with.offset(STANDARD_MARGIN);
-        make.top.equalTo(_nameLabel.mas_top);
+        make.leading.equalTo(_photoView.mas_trailing).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_photoView.mas_top);
     }];
     
     [_categoryLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_nameLabel.mas_leading);
-        make.top.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN)    ;
+        make.top.equalTo(_nameLabel.mas_bottom);
     }];
     
     [_pointValueLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.trailing.equalTo(@(STANDARD_MARGIN));
+        make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.top.equalTo(@(STANDARD_MARGIN));
     }];
     
