@@ -67,7 +67,7 @@
     [_detailsLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(_nameLabel.mas_leading);
         make.trailing.equalTo(@(-STANDARD_MARGIN));
-        make.top.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN / 2);
     }];
     
     [_pointValueLabel mas_updateConstraints:^(MASConstraintMaker *make) {
