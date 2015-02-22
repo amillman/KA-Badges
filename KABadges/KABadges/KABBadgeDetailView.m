@@ -90,8 +90,8 @@
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(STANDARD_MARGIN));
         make.centerX.equalTo(_headerView.mas_centerX);
-        make.height.equalTo(@256);
-        make.width.equalTo(@256);
+        make.height.equalTo(@200);
+        make.width.equalTo(@200);
     }];
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -115,6 +115,7 @@
         make.top.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
+        make.centerX.equalTo(self.mas_centerX);
     }];
     
     [super updateConstraints];
