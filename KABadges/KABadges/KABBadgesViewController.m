@@ -19,27 +19,31 @@
 
 @implementation KABBadgesViewController
 
+static NSString *cellIdentifier = @"Badge";
+
 #pragma mark - View Cycle
 
 - (void)loadView {
     self.view = [[KABBadgesView alloc] init];
-    [self getAllData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.view.tableView.delegate = self;
+    self.view.tableView.dataSource = self;
+    
+    [self getAllData];
 }
 
 #pragma mark - Networking
 
 - (void)getAllData {
-    [self getAllCategories];
+    [self getAllCategoriesAndBadges];
 }
 
-- (void)getAllCategories {
-    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)getAllCategoriesAndBadges {
+    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             [self.categories setObject:categoryJSON[@"type_label"] forKey:categoryJSON[@"category"]];
@@ -64,7 +68,56 @@
             
             [self.badges addObject:badge];
         }
+        [self.view.tableView reloadData];
     } failure:nil];
     
 }
+
+#pragma mark - TableView Delegate/DataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.badges count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cellView = nil;
+        
+    cellView = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
+    if (!cellView) {
+        cellView = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                              reuseIdentifier:cellIdentifier];
+    }
+    
+    KABBadge *badge = self.badges[indexPath.row];
+    cellView.textLabel.text = badge.name;
+    
+    return cellView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 44;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+}
+
+#pragma mark - Lazy Instantiation
+
+- (NSMutableDictionary *)categories {
+    if (!_categories) {
+        _categories = [[NSMutableDictionary alloc] init];
+    }
+    return _categories;
+}
+
+- (NSMutableArray *)badges {
+    if (!_badges) {
+        _badges = [[NSMutableArray alloc] init];
+    }
+    return _badges;
+}
+
 @end

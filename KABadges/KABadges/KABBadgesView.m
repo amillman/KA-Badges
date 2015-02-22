@@ -23,6 +23,7 @@
 
 - (void)createSubviews {
     _tableView = [[UITableView alloc] init];
+    [self addSubview:_tableView];
 }
 
 - (void)updateConstraints {
