@@ -7,6 +7,7 @@
 //
 
 #import "KABBadgesViewController.h"
+#import "KABBadgeDetailViewController.h"
 #import "KABBadgesView.h"
 #import "KABBadgeTableViewCell.h"
 #import "AFNetworking.h"
@@ -23,7 +24,7 @@
 
 static NSString *cellIdentifier = @"Badge";
 
-#pragma mark - View Cycle
+#pragma mark - ViewController Life Cycle
 
 - (void)loadView {
     self.view = [[KABBadgesView alloc] init];
@@ -135,6 +136,20 @@ static NSString *cellIdentifier = @"Badge";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    KABBadgeTableViewCell *selectedCell = (KABBadgeTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    KABCategory *selectedCategory = self.categories[indexPath.section];
+    KABBadge *selectedBadge = selectedCategory.badges[indexPath.row];
+    
+    KABBadgeDetailViewController *detailViewController = [[KABBadgeDetailViewController alloc] init];
+    detailViewController.badge = selectedBadge;
+    detailViewController.category = selectedCategory;
+    [detailViewController.view configureWithBadge:selectedBadge
+                                         category:selectedCategory
+                                 placeholderImage:selectedCell.photoView.image];
+    
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - Lazy Instantiation

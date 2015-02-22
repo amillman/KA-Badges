@@ -10,4 +10,11 @@
 
 @interface UIColor (KABColors)
 + (UIColor *)kab_mainColor;
++ (UIColor *)kab_meteoriteBadgeColor;
++ (UIColor *)kab_moonBadgeColor;
++ (UIColor *)kab_earthBadgeColor;
++ (UIColor *)kab_sunBadgeColor;
++ (UIColor *)kab_blackholeBadgeColor;
++ (UIColor *)kab_challengeBadgeColor;
++ (UIColor *)colorForCategory:(NSNumber *)category;
 @end
