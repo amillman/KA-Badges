@@ -7,8 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KABBadgeDetailView.h"
 #import "KABBadge.h"
+#import "KABCategory.h"
 
 @interface KABBadgeDetailViewController : UIViewController
+@property (strong, nonatomic) KABBadgeDetailView *view;
 @property (strong, nonatomic) KABBadge *badge;
+@property (strong, nonatomic) KABCategory *category;
 @end

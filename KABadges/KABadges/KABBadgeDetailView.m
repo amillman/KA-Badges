@@ -9,6 +9,7 @@
 #import "KABBadgeDetailView.h"
 #import "Masonry.h"
 #import "KABConstants.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface KABBadgeDetailView ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -80,10 +81,10 @@
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(NAVBAR_HEIGHT));
+        make.top.equalTo(@(STANDARD_MARGIN));
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
-        make.height.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.bottom.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -119,5 +120,14 @@
     [super updateConstraints];
 }
 
+#pragma mark - Public Methods
+
+- (void)configureWithBadge:(KABBadge *)badge category:(KABCategory *)category placeholderImage:(UIImage *)image {    
+    [_iconView setImageWithURL:badge.largeIconURL placeholderImage:image];
+    _nameLabel.text = badge.name;
+    _pointValueLabel.text = [badge.pointValue stringValue];
+    _categoryLabel.text = category.name;
+    _detailsLabel.text = badge.details;
+}
 
 @end

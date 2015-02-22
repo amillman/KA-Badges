@@ -7,12 +7,29 @@
 //
 
 #import "KABBadgeDetailViewController.h"
-#import "KABBadgeDetailView.h"
 
 @implementation KABBadgeDetailViewController
 
+#pragma mark - ViewController Life Cycle
+
 - (void)loadView {
     self.view = [[KABBadgeDetailView alloc] init];
+}
+
+#pragma mark - Lazy Instantiation
+
+- (KABBadge *)badge {
+    if (!_badge ) {
+        _badge = [[KABBadge alloc] init];
+    }
+    return _badge;
+}
+
+- (KABCategory *)category {
+    if (!_category ) {
+        _category = [[KABCategory alloc] init];
+    }
+    return _category;
 }
 
 @end
