@@ -32,10 +32,11 @@
 - (void)createSubviews {
     
     _scrollView = [[UIScrollView alloc] init];
+    _scrollView.alwaysBounceVertical = YES;
     [self addSubview:_scrollView];
     
     _headerView = [[UIView alloc] init];
-    _headerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.7];
+    _headerView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.8];
     [_scrollView addSubview:_headerView];
     
     _iconView = [[UIImageView alloc] init];
@@ -43,8 +44,8 @@
     [_headerView addSubview:_iconView];
     
     _nameLabel = [[UILabel alloc] init];
-    _nameLabel.font = [UIFont boldSystemFontOfSize:30.0];
-    _nameLabel.textColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:1];
+    _nameLabel.font = [UIFont systemFontOfSize:30.0];
+    _nameLabel.textColor = [UIColor colorWithRed:0.2 green:0.2 blue:0.2 alpha:1];
     _nameLabel.textAlignment = NSTextAlignmentCenter;
     _nameLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _nameLabel.numberOfLines = 0; // Dynamic height
@@ -52,17 +53,23 @@
     
     _pointValueLabel = [[UILabel alloc] init];
     _pointValueLabel.font = [UIFont boldSystemFontOfSize:20.0];
+    _pointValueLabel.backgroundColor = [UIColor whiteColor];
+    _pointValueLabel.textAlignment = NSTextAlignmentCenter;
+    _pointValueLabel.layer.cornerRadius = LABEL_CORNER_RADIUS;
+    _pointValueLabel.layer.masksToBounds = YES;
     [_headerView addSubview:_pointValueLabel];
     
     _categoryLabel = [[UILabel alloc] init];
-    _categoryLabel.font = [UIFont boldSystemFontOfSize:24.0];
+    _categoryLabel.font = [UIFont systemFontOfSize:14.0];
+    _categoryLabel.textColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:1];
     _categoryLabel.textAlignment = NSTextAlignmentCenter;
     _categoryLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _categoryLabel.numberOfLines = 0; // Dynamic height
-    [_scrollView addSubview:_categoryLabel];
+    [_headerView addSubview:_categoryLabel];
     
     _detailsLabel = [[UILabel alloc] init];
     _detailsLabel.font = [UIFont systemFontOfSize:16.0];
+    _detailsLabel.textColor = [UIColor whiteColor];
     _detailsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     _detailsLabel.numberOfLines = 0; // Dynamic height
     [_scrollView addSubview:_detailsLabel];
@@ -82,10 +89,10 @@
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(STANDARD_MARGIN));
+        make.top.equalTo(@0);
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
-        make.bottom.equalTo(_nameLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.bottom.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,18 +109,19 @@
     }];
     
     [_pointValueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(_nameLabel.mas_bottom);
+        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
         make.trailing.equalTo(@(-STANDARD_MARGIN));
+        make.width.equalTo(@(90));
     }];
     
     [_categoryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_nameLabel.mas_bottom);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
     }];
     
     [_detailsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_pointValueLabel.mas_bottom).with.offset(STANDARD_MARGIN);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.centerX.equalTo(self.mas_centerX);
@@ -125,11 +133,13 @@
 #pragma mark - Public Methods
 
 - (void)configureWithBadge:(KABBadge *)badge category:(KABCategory *)category placeholderImage:(UIImage *)image {    
-    self.backgroundColor = [UIColor colorForCategory:category.categoryNumber];
+    UIColor *themeColor = [UIColor colorForCategory:category.categoryNumber];
+    self.backgroundColor = themeColor;
     
     [_iconView setImageWithURL:badge.largeIconURL placeholderImage:image];
     _nameLabel.text = badge.name;
     _pointValueLabel.text = [badge.pointValue stringValue];
+    _pointValueLabel.textColor = themeColor;
     _categoryLabel.text = category.name;
     _detailsLabel.text = badge.details;
 }
