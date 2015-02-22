@@ -1,13 +1,5 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
-
 source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '7.0'
 
-target 'KABadges' do
-
-end
-
-target 'KABadgesTests' do
-
-end
-
+pod 'Masonry'
+pod 'AFNetworking', '~> 2.0'
