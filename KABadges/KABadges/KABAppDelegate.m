@@ -10,6 +10,7 @@
 #import "KABBadgesViewController.h"
 #import "AFNetworking.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "UIColor+KABColors.h"
 
 @interface KABAppDelegate ()
 
@@ -31,6 +32,9 @@
     
     // Set white background color
     [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    
+    // Set green navbar items
+    [[UINavigationBar appearance] setTintColor:[UIColor kab_mainColor]];
     
     return YES;
 }
