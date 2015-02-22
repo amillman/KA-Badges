@@ -38,4 +38,31 @@
     return [UIColor colorWithRed:61/255.0 green:168/255.0 blue:193/255.0 alpha:1];
 }
 
++ (UIColor *)colorForCategory:(NSNumber *)category {
+    switch ([category intValue]) {
+        case 0:
+            return [UIColor kab_meteoriteBadgeColor];
+            break;
+        case 1:
+            return [UIColor kab_moonBadgeColor];
+            break;
+        case 2:
+            return [UIColor kab_earthBadgeColor];
+            break;
+        case 3:
+            return [UIColor kab_sunBadgeColor];
+            break;
+        case 4:
+            return [UIColor kab_blackholeBadgeColor];
+            break;
+        case 5:
+            return [UIColor kab_challengeBadgeColor];
+            break;
+        default:
+            return [UIColor grayColor];
+            break;
+    }
+}
+
+
 @end

@@ -16,4 +16,5 @@
 + (UIColor *)kab_sunBadgeColor;
 + (UIColor *)kab_blackholeBadgeColor;
 + (UIColor *)kab_challengeBadgeColor;
++ (UIColor *)colorForCategory:(NSNumber *)category;
 @end

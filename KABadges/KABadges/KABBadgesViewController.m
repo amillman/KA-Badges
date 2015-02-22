@@ -148,7 +148,6 @@ static NSString *cellIdentifier = @"Badge";
     [detailViewController.view configureWithBadge:selectedBadge
                                          category:selectedCategory
                                  placeholderImage:selectedCell.photoView.image];
-    UINavigationController * c = self.navigationController;
     
     [self.navigationController pushViewController:detailViewController animated:YES];
 }

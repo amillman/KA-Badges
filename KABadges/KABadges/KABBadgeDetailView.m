@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "KABConstants.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIColor+KABColors.h"
 
 @interface KABBadgeDetailView ()
 @property (strong, nonatomic) UIScrollView *scrollView;
@@ -124,6 +125,8 @@
 #pragma mark - Public Methods
 
 - (void)configureWithBadge:(KABBadge *)badge category:(KABCategory *)category placeholderImage:(UIImage *)image {    
+    self.backgroundColor = [UIColor colorForCategory:category.categoryNumber];
+    
     [_iconView setImageWithURL:badge.largeIconURL placeholderImage:image];
     _nameLabel.text = badge.name;
     _pointValueLabel.text = [badge.pointValue stringValue];
