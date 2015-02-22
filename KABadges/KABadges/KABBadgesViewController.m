@@ -7,6 +7,7 @@
 //
 
 #import "KABBadgesViewController.h"
+#import "KABBadgeDetailViewController.h"
 #import "KABBadgesView.h"
 #import "KABBadgeTableViewCell.h"
 #import "AFNetworking.h"
@@ -135,6 +136,12 @@ static NSString *cellIdentifier = @"Badge";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    KABBadge *selectedBadge = self.categories[indexPath.row];
+    KABBadgeDetailViewController *detailViewController = [[KABBadgeDetailViewController alloc] init];
+    detailViewController.badge = selectedBadge;
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 #pragma mark - Lazy Instantiation
