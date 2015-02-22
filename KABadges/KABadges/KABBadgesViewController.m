@@ -120,19 +120,15 @@ static NSString *cellIdentifier = @"Badge";
     KABCategory *category = self.categories[indexPath.section];
     KABBadge *badge = category.badges[indexPath.row];
     cellView.nameLabel.text = badge.name;
+    cellView.detailsLabel.text = badge.details;
     cellView.pointValueLabel.text = [NSString stringWithFormat:@"%@ points", [badge.pointValue stringValue]];
-    
-    __weak __typeof(cellView.photoView)weakPhotoView = cellView.photoView;
-    [cellView.photoView setImageWithURLRequest:[NSURLRequest requestWithURL:badge.smallIconURL] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        __weak __typeof(weakPhotoView)strongPhotoView = weakPhotoView;
-        strongPhotoView.image = image;
-    } failure:nil];
+    [cellView.photoView setImageWithURL:badge.smallIconURL];
     
     return cellView;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60;
+    return 90;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
