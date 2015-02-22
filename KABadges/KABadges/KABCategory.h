@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSNumber *categoryNumber;
 @property (strong, nonatomic) NSURL *smallIconURL;
 @property (strong, nonatomic) NSURL *largeIconURL;
+@property (strong, nonatomic) NSMutableArray *badges; // of KABBadges
 
 @end

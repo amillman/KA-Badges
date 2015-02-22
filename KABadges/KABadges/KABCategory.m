@@ -10,4 +10,11 @@
 
 @implementation KABCategory
 
+- (NSMutableArray *)badges {
+    if (!_badges) {
+        _badges = [[NSMutableArray alloc] init];
+    }
+    return _badges;
+}
+
 @end

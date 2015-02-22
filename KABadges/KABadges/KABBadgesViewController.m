@@ -9,12 +9,12 @@
 #import "KABBadgesViewController.h"
 #import "KABBadgesView.h"
 #import "AFNetworking.h"
+#import "KABCategory.h"
 #import "KABBadge.h"
 
 @interface KABBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) KABBadgesView *view;
-@property (strong, nonatomic) NSMutableDictionary *categories;
-@property (strong, nonatomic) NSMutableArray *badges;
+@property (strong, nonatomic) NSMutableArray *categories;
 @end
 
 @implementation KABBadgesViewController
@@ -46,7 +46,14 @@ static NSString *cellIdentifier = @"Badge";
     [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
-            [self.categories setObject:categoryJSON[@"type_label"] forKey:categoryJSON[@"category"]];
+            KABCategory *category = [[KABCategory alloc] init];
+            category.name = categoryJSON[@"type_label"];
+            category.details = categoryJSON[@"translated_description"];
+            category.categoryNumber = categoryJSON[@"category"];
+            category.smallIconURL = categoryJSON[@"compact_icon_src"];
+            category.largeIconURL = categoryJSON[@"large_icon_src"];
+            
+            [self.categories addObject:category];
         }
         [self getAllBadges];
     } failure:nil];
@@ -66,7 +73,8 @@ static NSString *cellIdentifier = @"Badge";
             badge.smallIconURL = iconDictionary[@"compact"];
             badge.largeIconURL = iconDictionary[@"large"];
             
-            [self.badges addObject:badge];
+            KABCategory *correspondingCategory = self.categories[[badge.badgeCategory intValue]];
+            [correspondingCategory.badges addObject:badge];
         }
         [self.view.tableView reloadData];
     } failure:nil];
@@ -75,8 +83,18 @@ static NSString *cellIdentifier = @"Badge";
 
 #pragma mark - TableView Delegate/DataSource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.categories count];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.badges count];
+    KABCategory *category = self.categories[section];
+    return [category.badges count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    KABCategory *category = self.categories[section];
+    return category.name;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -91,7 +109,8 @@ static NSString *cellIdentifier = @"Badge";
                                               reuseIdentifier:cellIdentifier];
     }
     
-    KABBadge *badge = self.badges[indexPath.row];
+    KABCategory *category = self.categories[indexPath.section];
+    KABBadge *badge = category.badges[indexPath.row];
     cellView.textLabel.text = badge.name;
     
     return cellView;
@@ -106,18 +125,11 @@ static NSString *cellIdentifier = @"Badge";
 
 #pragma mark - Lazy Instantiation
 
-- (NSMutableDictionary *)categories {
+- (NSMutableArray *)categories {
     if (!_categories) {
-        _categories = [[NSMutableDictionary alloc] init];
+        _categories = [[NSMutableArray alloc] init];
     }
     return _categories;
-}
-
-- (NSMutableArray *)badges {
-    if (!_badges) {
-        _badges = [[NSMutableArray alloc] init];
-    }
-    return _badges;
 }
 
 @end
