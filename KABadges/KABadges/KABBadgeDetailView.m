@@ -13,6 +13,11 @@
 #import "UIColor+KABColors.h"
 
 @interface KABBadgeDetailView ()
+@property (strong, nonatomic) UIImageView *iconView;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UILabel *categoryLabel;
+@property (strong, nonatomic) UILabel *detailsLabel;
+@property (strong, nonatomic) UILabel *pointValueLabel;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UILabel *pointsWordLabel;
