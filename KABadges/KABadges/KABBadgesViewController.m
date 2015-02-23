@@ -14,6 +14,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "KABCategory.h"
 #import "KABBadge.h"
+#import "KABConstants.h"
 
 @interface KABBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) KABBadgesView *view;
@@ -23,6 +24,8 @@
 @implementation KABBadgesViewController
 
 static NSString *cellIdentifier = @"Badge";
+static NSString *CATEGORIES_ENDPOINT = @"/badges/categories";
+static NSString *BADGES_ENDPOINT = @"/badges";
 
 #pragma mark - ViewController Life Cycle
 
@@ -48,7 +51,8 @@ static NSString *cellIdentifier = @"Badge";
 }
 
 - (void)_getAllCategoriesAndBadges {
-    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *categoriesURL = [BASE_URL stringByAppendingString:CATEGORIES_ENDPOINT];
+    [[AFHTTPRequestOperationManager manager] GET:categoriesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             KABCategory *category = [[KABCategory alloc] init];
@@ -65,7 +69,8 @@ static NSString *cellIdentifier = @"Badge";
 }
 
 - (void)_getAllBadges {
-    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSString *badgesURL = [BASE_URL stringByAppendingString:BADGES_ENDPOINT];
+    [[AFHTTPRequestOperationManager manager] GET:badgesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseBadges = responseObject;
         for(NSDictionary *badgeJSON in responseBadges) {
             KABBadge *badge = [[KABBadge alloc] init];
