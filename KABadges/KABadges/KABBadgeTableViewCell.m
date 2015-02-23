@@ -18,7 +18,7 @@
     
     if (self) {
         [self setClipsToBounds:YES];
-        [self createSubviews];
+        [self _createSubviews];
         [self setNeedsUpdateConstraints];
     }
     return self;
@@ -28,7 +28,7 @@
     [self.photoView cancelImageRequestOperation];
 }
 
-- (void)createSubviews {
+- (void)_createSubviews {
     
     _photoView = [[UIImageView alloc] init];
     _photoView.contentMode = UIViewContentModeScaleAspectFill;

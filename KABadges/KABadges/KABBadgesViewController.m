@@ -38,16 +38,16 @@ static NSString *cellIdentifier = @"Badge";
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
     
-    [self getAllData];
+    [self _getAllData];
 }
 
 #pragma mark - Networking
 
-- (void)getAllData {
-    [self getAllCategoriesAndBadges];
+- (void)_getAllData {
+    [self _getAllCategoriesAndBadges];
 }
 
-- (void)getAllCategoriesAndBadges {
+- (void)_getAllCategoriesAndBadges {
     [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
@@ -60,11 +60,11 @@ static NSString *cellIdentifier = @"Badge";
             
             [self.categories addObject:category];
         }
-        [self getAllBadges];
+        [self _getAllBadges];
     } failure:nil];
 }
 
-- (void)getAllBadges {
+- (void)_getAllBadges {
     [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *responseBadges = responseObject;
         for(NSDictionary *badgeJSON in responseBadges) {

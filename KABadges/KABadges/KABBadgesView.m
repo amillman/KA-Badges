@@ -16,13 +16,13 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        [self createSubviews];
+        [self _createSubviews];
         [self setNeedsUpdateConstraints];
     }
     return self;
 }
 
-- (void)createSubviews {
+- (void)_createSubviews {
     
     _tableView = [[UITableView alloc] init];
     _tableView.tableFooterView = [[UIView alloc] init];
