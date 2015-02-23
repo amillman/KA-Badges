@@ -91,6 +91,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		278230481A9BF36A00C882CB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				27BDF99C1A99A8D300E1DCC8 /* UIColor+KABColors.h */,
+				27BDF99D1A99A8D300E1DCC8 /* UIColor+KABColors.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		27BDF9581A99506D00E1DCC8 = {
 			isa = PBXGroup;
 			children = (
@@ -114,7 +123,7 @@
 		27BDF9631A99506E00E1DCC8 /* KABadges */ = {
 			isa = PBXGroup;
 			children = (
-				27BDF99B1A99A87900E1DCC8 /* Extensions */,
+				278230481A9BF36A00C882CB /* Categories */,
 				27BDF9971A99948200E1DCC8 /* Models */,
 				27BDF9981A99949100E1DCC8 /* Views */,
 				27BDF9961A99947600E1DCC8 /* Controllers */,
@@ -186,15 +195,6 @@
 				27BDF9A31A99AF0D00E1DCC8 /* KABBadgeDetailView.m */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		27BDF99B1A99A87900E1DCC8 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				27BDF99C1A99A8D300E1DCC8 /* UIColor+KABColors.h */,
-				27BDF99D1A99A8D300E1DCC8 /* UIColor+KABColors.m */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 		9846B28AFADFA6CDC9443493 /* Pods */ = {
