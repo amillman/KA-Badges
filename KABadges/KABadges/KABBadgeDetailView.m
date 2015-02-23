@@ -35,6 +35,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [_iconView cancelImageRequestOperation];
+}
+
 - (void)createSubviews {
     
     _scrollView = [[UIScrollView alloc] init];
