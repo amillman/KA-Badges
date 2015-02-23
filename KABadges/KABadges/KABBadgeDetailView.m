@@ -94,10 +94,7 @@
 - (void)updateConstraints {
     
     [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
-        make.leading.equalTo(@0);
-        make.trailing.equalTo(@0);
-        make.bottom.equalTo(@0);
+        make.edges.equalTo(@0);
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {

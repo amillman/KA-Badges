@@ -36,10 +36,7 @@
 - (void)updateConstraints {
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
-        make.leading.equalTo(@0);
-        make.trailing.equalTo(@0);
-        make.bottom.equalTo(@0);
+        make.edges.equalTo(@0);
     }];
     
     [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
