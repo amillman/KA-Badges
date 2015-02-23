@@ -23,9 +23,9 @@
 
 @implementation KABBadgesViewController
 
-static NSString *cellIdentifier = @"Badge";
 static NSString *CATEGORIES_ENDPOINT = @"/badges/categories";
 static NSString *BADGES_ENDPOINT = @"/badges";
+static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 
 #pragma mark - ViewController Life Cycle
 
@@ -113,13 +113,13 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     
     KABBadgeTableViewCell *cellView = nil;
         
-    cellView = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cellView = [tableView dequeueReusableCellWithIdentifier:BADGE_CELL_IDENTIFIER];
     [cellView.photoView cancelImageRequestOperation];
     cellView.photoView.image = nil;
     
     if (!cellView) {
         cellView = [[KABBadgeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:cellIdentifier];
+                                              reuseIdentifier:BADGE_CELL_IDENTIFIER];
     }
     
     KABCategory *category = self.categories[indexPath.section];
