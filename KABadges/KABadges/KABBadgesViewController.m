@@ -69,7 +69,10 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             [strongSelf.categories addObject:category];
         }
         [strongSelf _getAllBadges];
-    } failure:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf _alertError:@"Could not load categories."];
+    }];
 }
 
 - (void)_getAllBadges {
@@ -96,7 +99,10 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
         }
         [strongSelf.view.tableView reloadData];
         [strongSelf.view.indicatorView stopAnimating];
-    } failure:nil];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf _alertError:@"Could not load badges."];
+    }];
     
 }
 
@@ -159,6 +165,13 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
                                  placeholderImage:selectedCell.photoView.image];
     
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - Private Methods
+
+- (void)_alertError:(NSString *)message {
+    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorView show];
 }
 
 #pragma mark - Lazy Instantiation
