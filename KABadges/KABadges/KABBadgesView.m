@@ -7,10 +7,13 @@
 //
 
 #import "KABBadgesView.h"
+#import "KABCategoryCollectionViewCell.h"
 #import "Masonry.h"
 #import "KABConstants.h"
 
 @implementation KABBadgesView
+
+const static float COLLECTION_VIEW_HEIGHT = 50.0f;
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -28,6 +31,11 @@
     _tableView.tableFooterView = [[UIView alloc] init];
     [self addSubview:_tableView];
     
+    _categoriesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[self _createCategoriesCollectionViewLayout]];
+    _categoriesCollectionView.backgroundColor = [UIColor whiteColor];
+    [_categoriesCollectionView registerClass:KABCategoryCollectionViewCell.class forCellWithReuseIdentifier:@"Cell"];
+    [self addSubview:_categoriesCollectionView];
+    
     _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_indicatorView startAnimating];
     [self addSubview:_indicatorView];
@@ -36,7 +44,17 @@
 - (void)updateConstraints {
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(@0);
+        make.top.equalTo(@0);
+        make.leading.equalTo(@0);
+        make.trailing.equalTo(@0);
+        make.bottom.equalTo(_categoriesCollectionView.mas_top);
+    }];
+    
+    [_categoriesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@(COLLECTION_VIEW_HEIGHT));
+        make.leading.equalTo(@0);
+        make.trailing.equalTo(@0);
+        make.bottom.equalTo(@0);
     }];
     
     [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -45,6 +63,19 @@
     }];
     
     [super updateConstraints];
+}
+
+#pragma mark - Private Helper Methods
+
+- (UICollectionViewLayout *)_createCategoriesCollectionViewLayout {
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setItemSize:CGSizeMake(TAB_HEIGHT, 0)];
+    [flowLayout setMinimumInteritemSpacing:0.f];
+    [flowLayout setMinimumLineSpacing:0.f];
+    [flowLayout setSectionInset:UIEdgeInsetsZero];
+    
+    return flowLayout;
 }
 
 @end
