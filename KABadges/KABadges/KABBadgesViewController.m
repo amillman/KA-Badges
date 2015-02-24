@@ -52,7 +52,11 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 
 - (void)_getAllCategoriesAndBadges {
     NSString *categoriesURL = [BASE_URL stringByAppendingString:CATEGORIES_ENDPOINT];
+    
+    __weak __typeof(self)weakSelf = self;
     [[AFHTTPRequestOperationManager manager] GET:categoriesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             KABCategory *category = [[KABCategory alloc] init];
@@ -62,15 +66,19 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             category.smallIconURL = [NSURL URLWithString:categoryJSON[@"compact_icon_src"]];
             category.largeIconURL = [NSURL URLWithString:categoryJSON[@"large_icon_src"]];
             
-            [self.categories addObject:category];
+            [strongSelf.categories addObject:category];
         }
-        [self _getAllBadges];
+        [strongSelf _getAllBadges];
     } failure:nil];
 }
 
 - (void)_getAllBadges {
     NSString *badgesURL = [BASE_URL stringByAppendingString:BADGES_ENDPOINT];
+    
+    __weak __typeof(self)weakSelf = self;
     [[AFHTTPRequestOperationManager manager] GET:badgesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
         NSArray *responseBadges = responseObject;
         for(NSDictionary *badgeJSON in responseBadges) {
             KABBadge *badge = [[KABBadge alloc] init];
@@ -83,11 +91,11 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             badge.smallIconURL = [NSURL URLWithString:iconDictionary[@"email"]];
             badge.largeIconURL = [NSURL URLWithString:iconDictionary[@"large"]];
             
-            KABCategory *correspondingCategory = self.categories[[badge.badgeCategory intValue]];
+            KABCategory *correspondingCategory = strongSelf.categories[[badge.badgeCategory intValue]];
             [correspondingCategory.badges addObject:badge];
         }
-        [self.view.tableView reloadData];
-        [self.view.indicatorView stopAnimating];
+        [strongSelf.view.tableView reloadData];
+        [strongSelf.view.indicatorView stopAnimating];
     } failure:nil];
     
 }
