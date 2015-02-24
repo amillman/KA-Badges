@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2782304B1A9D376100C882CB /* KABCategoryCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2782304A1A9D376100C882CB /* KABCategoryCollectionViewCell.m */; };
 		27BDF9671A99506E00E1DCC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9661A99506E00E1DCC8 /* main.m */; };
 		27BDF96A1A99506E00E1DCC8 /* KABAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF9691A99506E00E1DCC8 /* KABAppDelegate.m */; };
 		27BDF96D1A99506E00E1DCC8 /* KABBadgesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27BDF96C1A99506E00E1DCC8 /* KABBadgesViewController.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		278230491A9D376100C882CB /* KABCategoryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KABCategoryCollectionViewCell.h; sourceTree = "<group>"; };
+		2782304A1A9D376100C882CB /* KABCategoryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KABCategoryCollectionViewCell.m; sourceTree = "<group>"; };
 		27BDF9611A99506E00E1DCC8 /* KABadges.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KABadges.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27BDF9651A99506E00E1DCC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		27BDF9661A99506E00E1DCC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				27BDF98E1A99669800E1DCC8 /* KABBadgesView.m */,
 				27BDF9931A99945C00E1DCC8 /* KABBadgeTableViewCell.h */,
 				27BDF9941A99945C00E1DCC8 /* KABBadgeTableViewCell.m */,
+				278230491A9D376100C882CB /* KABCategoryCollectionViewCell.h */,
+				2782304A1A9D376100C882CB /* KABCategoryCollectionViewCell.m */,
 				27BDF9A21A99AF0D00E1DCC8 /* KABBadgeDetailView.h */,
 				27BDF9A31A99AF0D00E1DCC8 /* KABBadgeDetailView.m */,
 			);
@@ -348,6 +353,7 @@
 				27BDF98C1A99634400E1DCC8 /* KABBadge.m in Sources */,
 				27BDF9671A99506E00E1DCC8 /* main.m in Sources */,
 				27BDF99E1A99A8D300E1DCC8 /* UIColor+KABColors.m in Sources */,
+				2782304B1A9D376100C882CB /* KABCategoryCollectionViewCell.m in Sources */,
 				27BDF9951A99945C00E1DCC8 /* KABBadgeTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
