@@ -13,6 +13,11 @@
 #import "UIColor+KABColors.h"
 
 @interface KABBadgeDetailView ()
+@property (strong, nonatomic) UIImageView *iconView;
+@property (strong, nonatomic) UILabel *nameLabel;
+@property (strong, nonatomic) UILabel *categoryLabel;
+@property (strong, nonatomic) UILabel *detailsLabel;
+@property (strong, nonatomic) UILabel *pointValueLabel;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UILabel *pointsWordLabel;
@@ -24,13 +29,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        [self createSubviews];
+        [self _createSubviews];
         [self setNeedsUpdateConstraints];
     }
     return self;
 }
 
-- (void)createSubviews {
+- (void)dealloc {
+    [_iconView cancelImageRequestOperation];
+}
+
+- (void)_createSubviews {
     
     _scrollView = [[UIScrollView alloc] init];
     _scrollView.alwaysBounceVertical = YES;
@@ -85,21 +94,18 @@
 - (void)updateConstraints {
     
     [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@0);
-        make.leading.equalTo(@0);
-        make.trailing.equalTo(@0);
-        make.bottom.equalTo(@0);
+        make.edges.equalTo(@0);
     }];
     
     [_headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@0);
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
-        make.bottom.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.bottom.equalTo(_categoryLabel.mas_bottom).with.offset(STANDARD_MARGIN * 2);
     }];
     
     [_iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(STANDARD_MARGIN));
+        make.top.equalTo(@(STANDARD_MARGIN * 2));
         make.centerX.equalTo(_headerView.mas_centerX);
         make.height.equalTo(@200);
         make.width.equalTo(@200);
@@ -118,7 +124,7 @@
     }];
     
     [_detailsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN);
+        make.top.equalTo(_headerView.mas_bottom).with.offset(STANDARD_MARGIN * 2);
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.trailing.equalTo(@(-STANDARD_MARGIN));
         make.centerX.equalTo(self.mas_centerX);

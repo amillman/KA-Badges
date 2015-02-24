@@ -14,6 +14,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "KABCategory.h"
 #import "KABBadge.h"
+#import "KABConstants.h"
 
 @interface KABBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (strong, nonatomic) KABBadgesView *view;
@@ -22,7 +23,9 @@
 
 @implementation KABBadgesViewController
 
-static NSString *cellIdentifier = @"Badge";
+static NSString *CATEGORIES_ENDPOINT = @"/badges/categories";
+static NSString *BADGES_ENDPOINT = @"/badges";
+static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 
 #pragma mark - ViewController Life Cycle
 
@@ -38,17 +41,22 @@ static NSString *cellIdentifier = @"Badge";
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
     
-    [self getAllData];
+    [self _getAllData];
 }
 
 #pragma mark - Networking
 
-- (void)getAllData {
-    [self getAllCategoriesAndBadges];
+- (void)_getAllData {
+    [self _getAllCategoriesAndBadges];
 }
 
-- (void)getAllCategoriesAndBadges {
-    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges/categories" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)_getAllCategoriesAndBadges {
+    NSString *categoriesURL = [BASE_URL stringByAppendingString:CATEGORIES_ENDPOINT];
+    
+    __weak __typeof(self)weakSelf = self;
+    [[AFHTTPRequestOperationManager manager] GET:categoriesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             KABCategory *category = [[KABCategory alloc] init];
@@ -58,14 +66,22 @@ static NSString *cellIdentifier = @"Badge";
             category.smallIconURL = [NSURL URLWithString:categoryJSON[@"compact_icon_src"]];
             category.largeIconURL = [NSURL URLWithString:categoryJSON[@"large_icon_src"]];
             
-            [self.categories addObject:category];
+            [strongSelf.categories addObject:category];
         }
-        [self getAllBadges];
-    } failure:nil];
+        [strongSelf _getAllBadges];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf _alertError:@"Could not load categories."];
+    }];
 }
 
-- (void)getAllBadges {
-    [[AFHTTPRequestOperationManager manager] GET:@"http://www.khanacademy.org/api/v1/badges" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+- (void)_getAllBadges {
+    NSString *badgesURL = [BASE_URL stringByAppendingString:BADGES_ENDPOINT];
+    
+    __weak __typeof(self)weakSelf = self;
+    [[AFHTTPRequestOperationManager manager] GET:badgesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
         NSArray *responseBadges = responseObject;
         for(NSDictionary *badgeJSON in responseBadges) {
             KABBadge *badge = [[KABBadge alloc] init];
@@ -78,12 +94,15 @@ static NSString *cellIdentifier = @"Badge";
             badge.smallIconURL = [NSURL URLWithString:iconDictionary[@"email"]];
             badge.largeIconURL = [NSURL URLWithString:iconDictionary[@"large"]];
             
-            KABCategory *correspondingCategory = self.categories[[badge.badgeCategory intValue]];
+            KABCategory *correspondingCategory = strongSelf.categories[[badge.badgeCategory intValue]];
             [correspondingCategory.badges addObject:badge];
         }
-        [self.view.tableView reloadData];
-        [self.view.indicatorView stopAnimating];
-    } failure:nil];
+        [strongSelf.view.tableView reloadData];
+        [strongSelf.view.indicatorView stopAnimating];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf _alertError:@"Could not load badges."];
+    }];
     
 }
 
@@ -108,13 +127,13 @@ static NSString *cellIdentifier = @"Badge";
     
     KABBadgeTableViewCell *cellView = nil;
         
-    cellView = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    cellView = [tableView dequeueReusableCellWithIdentifier:BADGE_CELL_IDENTIFIER];
     [cellView.photoView cancelImageRequestOperation];
     cellView.photoView.image = nil;
     
     if (!cellView) {
         cellView = [[KABBadgeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:cellIdentifier];
+                                              reuseIdentifier:BADGE_CELL_IDENTIFIER];
     }
     
     KABCategory *category = self.categories[indexPath.section];
@@ -146,6 +165,13 @@ static NSString *cellIdentifier = @"Badge";
                                  placeholderImage:selectedCell.photoView.image];
     
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - Private Methods
+
+- (void)_alertError:(NSString *)message {
+    UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorView show];
 }
 
 #pragma mark - Lazy Instantiation

@@ -18,7 +18,7 @@
     
     if (self) {
         [self setClipsToBounds:YES];
-        [self createSubviews];
+        [self _createSubviews];
         [self setNeedsUpdateConstraints];
     }
     return self;
@@ -28,25 +28,25 @@
     [self.photoView cancelImageRequestOperation];
 }
 
-- (void)createSubviews {
+- (void)_createSubviews {
     
     _photoView = [[UIImageView alloc] init];
     _photoView.contentMode = UIViewContentModeScaleAspectFill;
-    [self addSubview:_photoView];
+    [self.contentView addSubview:_photoView];
     
     _nameLabel = [[UILabel alloc] init];
     _nameLabel.font = [UIFont systemFontOfSize:18.0];
-    [self addSubview:_nameLabel];
+    [self.contentView addSubview:_nameLabel];
     
     _detailsLabel = [[UILabel alloc] init];
     _detailsLabel.font = [UIFont systemFontOfSize:14.0];
     _detailsLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
-    [self addSubview:_detailsLabel];
+    [self.contentView addSubview:_detailsLabel];
     
     _pointValueLabel = [[UILabel alloc] init];
     _pointValueLabel.font = [UIFont systemFontOfSize:14.0];
     _pointValueLabel.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1];
-    [self addSubview:_pointValueLabel];
+    [self.contentView addSubview:_pointValueLabel];
 }
 
 - (void)updateConstraints {

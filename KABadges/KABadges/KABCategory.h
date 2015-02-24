@@ -10,8 +10,8 @@
 
 @interface KABCategory : NSObject
 
-@property (strong, nonatomic) NSString *name;
-@property (strong, nonatomic) NSString *details;
+@property (copy, nonatomic) NSString *name;
+@property (copy, nonatomic) NSString *details;
 @property (strong, nonatomic) NSNumber *categoryNumber;
 @property (strong, nonatomic) NSURL *smallIconURL;
 @property (strong, nonatomic) NSURL *largeIconURL;
