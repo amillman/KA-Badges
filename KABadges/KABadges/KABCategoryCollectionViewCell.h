@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface KABCategoryCollectionViewCell : UICollectionViewCell
-
+@property (strong, nonatomic) UIImageView *photoView;
+@property (strong, nonatomic) UILabel *nameLabel;
 @end
