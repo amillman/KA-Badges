@@ -10,13 +10,20 @@
 #import "KABBadgeDetailViewController.h"
 #import "KABBadgesView.h"
 #import "KABBadgeTableViewCell.h"
+#import "KABCategoryCollectionViewCell.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "KABCategory.h"
 #import "KABBadge.h"
 #import "KABConstants.h"
 
-@interface KABBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface KABBadgesViewController () <
+    UITableViewDelegate,
+    UITableViewDataSource,
+    UICollectionViewDelegate,
+    UICollectionViewDelegateFlowLayout,
+    UICollectionViewDataSource
+>
 @property (strong, nonatomic) KABBadgesView *view;
 @property (strong, nonatomic) NSMutableArray *categories;
 @end
@@ -25,7 +32,6 @@
 
 static NSString *CATEGORIES_ENDPOINT = @"/badges/categories";
 static NSString *BADGES_ENDPOINT = @"/badges";
-static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 
 #pragma mark - ViewController Life Cycle
 
@@ -40,6 +46,8 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
     
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
+    self.view.categoriesCollectionView.delegate = self;
+    self.view.categoriesCollectionView.dataSource = self;
     
     [self _getAllData];
 }
@@ -98,6 +106,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             [correspondingCategory.badges addObject:badge];
         }
         [strongSelf.view.tableView reloadData];
+        [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf.view.indicatorView stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -125,15 +134,13 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KABBadgeTableViewCell *cellView = nil;
-        
-    cellView = [tableView dequeueReusableCellWithIdentifier:BADGE_CELL_IDENTIFIER];
+    KABBadgeTableViewCell *cellView = [tableView dequeueReusableCellWithIdentifier:[KABBadgeTableViewCell reuseIdentifier]];
     [cellView.photoView cancelImageRequestOperation];
     cellView.photoView.image = nil;
     
     if (!cellView) {
         cellView = [[KABBadgeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:BADGE_CELL_IDENTIFIER];
+                                              reuseIdentifier:[KABBadgeTableViewCell reuseIdentifier]];
     }
     
     KABCategory *category = self.categories[indexPath.section];
@@ -147,7 +154,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    return [KABBadgeTableViewCell cellHeight];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -165,6 +172,37 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
                                  placeholderImage:selectedCell.photoView.image];
     
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+#pragma mark - Collection Delegate/FlowLayout/DataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.categories count];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    KABCategoryCollectionViewCell *cellView = [collectionView dequeueReusableCellWithReuseIdentifier:[KABCategoryCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
+    [cellView.photoView cancelImageRequestOperation];
+    cellView.photoView.image = nil;
+    
+    KABCategory *category = self.categories[indexPath.row];
+    [cellView.photoView setImageWithURL:category.smallIconURL];
+    cellView.nameLabel.text = category.name;
+    return cellView;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
+    [self.view.tableView scrollToRowAtIndexPath:destinationPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    KABCategory *category = self.categories[indexPath.row];
+    return [KABCategoryCollectionViewCell sizeOfCellWithText:category.name];
 }
 
 #pragma mark - Private Methods

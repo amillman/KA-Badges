@@ -13,6 +13,8 @@
 
 @implementation KABBadgeTableViewCell
 
+static const CGFloat CELL_HEIGHT = 90.0f;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
@@ -77,6 +79,16 @@
     
     
     [super updateConstraints];
+}
+
+#pragma mark - Public Methods
+
++ (NSString *)reuseIdentifier {
+    return @"BadgeCell";
+}
+
++ (CGFloat)cellHeight {
+    return CELL_HEIGHT;
 }
 
 @end
