@@ -10,13 +10,20 @@
 #import "KABBadgeDetailViewController.h"
 #import "KABBadgesView.h"
 #import "KABBadgeTableViewCell.h"
+#import "KABCategoryCollectionViewCell.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "KABCategory.h"
 #import "KABBadge.h"
 #import "KABConstants.h"
 
-@interface KABBadgesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface KABBadgesViewController () <
+    UITableViewDelegate,
+    UITableViewDataSource,
+    UICollectionViewDelegate,
+    UICollectionViewDelegateFlowLayout,
+    UICollectionViewDataSource
+>
 @property (strong, nonatomic) KABBadgesView *view;
 @property (strong, nonatomic) NSMutableArray *categories;
 @end
@@ -40,6 +47,8 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
     
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
+    self.view.categoriesCollectionView.delegate = self;
+    self.view.categoriesCollectionView.dataSource = self;
     
     [self _getAllData];
 }
@@ -68,6 +77,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             
             [strongSelf.categories addObject:category];
         }
+        [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf _getAllBadges];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -166,6 +176,31 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
     
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
+
+#pragma mark - Collection Delegate/FlowLayout/DataSource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.categories count];
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    KABCategoryCollectionViewCell *cellView = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    [cellView.photoView cancelImageRequestOperation];
+    cellView.photoView.image = nil;
+    
+    KABCategory *category = self.categories[indexPath.row];
+    [cellView.photoView setImageWithURL:category.smallIconURL];
+    cellView.nameLabel.text = category.name;
+    return cellView;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+}
+
 
 #pragma mark - Private Methods
 

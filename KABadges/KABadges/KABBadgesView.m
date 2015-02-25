@@ -70,7 +70,7 @@ const static float COLLECTION_VIEW_HEIGHT = 50.0f;
 - (UICollectionViewLayout *)_createCategoriesCollectionViewLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setItemSize:CGSizeMake(TAB_HEIGHT, 0)];
+    [flowLayout setItemSize:CGSizeMake(100, COLLECTION_VIEW_HEIGHT)];
     [flowLayout setMinimumInteritemSpacing:0.f];
     [flowLayout setMinimumLineSpacing:0.f];
     [flowLayout setSectionInset:UIEdgeInsetsZero];
