@@ -11,6 +11,10 @@
 #import "Masonry.h"
 #import "KABConstants.h"
 
+@interface KABBadgesView ()
+@property (strong, nonatomic) UIView *collectionViewBorder;
+@end
+
 @implementation KABBadgesView
 
 - (id)initWithFrame:(CGRect)frame {
@@ -34,6 +38,10 @@
     [_categoriesCollectionView registerClass:KABCategoryCollectionViewCell.class forCellWithReuseIdentifier:@"Cell"];
     [self addSubview:_categoriesCollectionView];
     
+    _collectionViewBorder = [[UIView alloc] init];
+    _collectionViewBorder.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
+    [self addSubview:_collectionViewBorder];
+    
     _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     [_indicatorView startAnimating];
     [self addSubview:_indicatorView];
@@ -53,6 +61,12 @@
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(@0);
+    }];
+    [_collectionViewBorder mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.equalTo(@1);
+        make.leading.equalTo(@0);
+        make.trailing.equalTo(@0);
+        make.bottom.equalTo(_categoriesCollectionView.mas_top);
     }];
     
     [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
