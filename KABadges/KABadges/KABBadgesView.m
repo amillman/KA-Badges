@@ -30,10 +30,12 @@
 - (void)_createSubviews {
     
     _tableView = [[UITableView alloc] init];
+    _tableView.scrollsToTop = YES;
     _tableView.tableFooterView = [[UIView alloc] init];
     [self addSubview:_tableView];
     
     _categoriesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[self _createCategoriesCollectionViewLayout]];
+    _categoriesCollectionView.scrollsToTop = NO;
     _categoriesCollectionView.backgroundColor = [UIColor whiteColor];
     [_categoriesCollectionView registerClass:KABCategoryCollectionViewCell.class
                   forCellWithReuseIdentifier:[KABCategoryCollectionViewCell reuseIdentifier]];
