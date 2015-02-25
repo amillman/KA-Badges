@@ -63,6 +63,10 @@ static const CGFloat NAME_SIZE = 14.0f;
 
 #pragma mark - Public Methods
 
++ (NSString *)reuseIdentifier {
+    return @"CategoryCollectionViewCell";
+}
+
 + (CGFloat)cellHeight {
     return CELL_HEIGHT;
 }

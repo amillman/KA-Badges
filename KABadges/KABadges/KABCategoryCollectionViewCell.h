@@ -11,6 +11,7 @@
 @interface KABCategoryCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) UIImageView *photoView;
 @property (strong, nonatomic) UILabel *nameLabel;
++ (NSString *)reuseIdentifier;
 + (CGFloat)cellHeight;
 + (CGSize)sizeOfCellWithText:(NSString *)text;
 @end

@@ -35,7 +35,8 @@
     
     _categoriesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[self _createCategoriesCollectionViewLayout]];
     _categoriesCollectionView.backgroundColor = [UIColor whiteColor];
-    [_categoriesCollectionView registerClass:KABCategoryCollectionViewCell.class forCellWithReuseIdentifier:@"Cell"];
+    [_categoriesCollectionView registerClass:KABCategoryCollectionViewCell.class
+                  forCellWithReuseIdentifier:[KABCategoryCollectionViewCell reuseIdentifier]];
     [self addSubview:_categoriesCollectionView];
     
     _collectionViewBorder = [[UIView alloc] init];

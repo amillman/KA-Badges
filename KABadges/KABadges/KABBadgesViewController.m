@@ -32,7 +32,6 @@
 
 static NSString *CATEGORIES_ENDPOINT = @"/badges/categories";
 static NSString *BADGES_ENDPOINT = @"/badges";
-static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 
 #pragma mark - ViewController Life Cycle
 
@@ -135,15 +134,13 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    KABBadgeTableViewCell *cellView = nil;
-        
-    cellView = [tableView dequeueReusableCellWithIdentifier:BADGE_CELL_IDENTIFIER];
+    KABBadgeTableViewCell *cellView = [tableView dequeueReusableCellWithIdentifier:[KABBadgeTableViewCell reuseIdentifier]];
     [cellView.photoView cancelImageRequestOperation];
     cellView.photoView.image = nil;
     
     if (!cellView) {
         cellView = [[KABBadgeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                              reuseIdentifier:BADGE_CELL_IDENTIFIER];
+                                              reuseIdentifier:[KABBadgeTableViewCell reuseIdentifier]];
     }
     
     KABCategory *category = self.categories[indexPath.section];
@@ -188,7 +185,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    KABCategoryCollectionViewCell *cellView = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    KABCategoryCollectionViewCell *cellView = [collectionView dequeueReusableCellWithReuseIdentifier:[KABCategoryCollectionViewCell reuseIdentifier] forIndexPath:indexPath];
     [cellView.photoView cancelImageRequestOperation];
     cellView.photoView.image = nil;
     

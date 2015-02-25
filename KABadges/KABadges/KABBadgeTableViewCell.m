@@ -83,6 +83,10 @@ static const CGFloat CELL_HEIGHT = 90.0f;
 
 #pragma mark - Public Methods
 
++ (NSString *)reuseIdentifier {
+    return @"BadgeCell";
+}
+
 + (CGFloat)cellHeight {
     return CELL_HEIGHT;
 }
