@@ -13,8 +13,6 @@
 
 @implementation KABBadgesView
 
-const static float COLLECTION_VIEW_HEIGHT = 50.0f;
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -51,7 +49,7 @@ const static float COLLECTION_VIEW_HEIGHT = 50.0f;
     }];
     
     [_categoriesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(COLLECTION_VIEW_HEIGHT));
+        make.height.equalTo(@(CATEGORIES_COLLECTION_VIEW_HEIGHT));
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(@0);
@@ -70,7 +68,6 @@ const static float COLLECTION_VIEW_HEIGHT = 50.0f;
 - (UICollectionViewLayout *)_createCategoriesCollectionViewLayout {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setItemSize:CGSizeMake(100, COLLECTION_VIEW_HEIGHT)];
     [flowLayout setMinimumInteritemSpacing:0.f];
     [flowLayout setMinimumLineSpacing:0.f];
     [flowLayout setSectionInset:UIEdgeInsetsZero];

@@ -13,6 +13,9 @@
 
 @implementation KABCategoryCollectionViewCell
 
+static const CGFloat IMAGE_DIAMETER = 30.0f;
+static const CGFloat NAME_SIZE = 14.0f;
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
@@ -35,7 +38,7 @@
     [self.contentView addSubview:_photoView];
     
     _nameLabel = [[UILabel alloc] init];
-    _nameLabel.font = [UIFont systemFontOfSize:14.0];
+    _nameLabel.font = [UIFont systemFontOfSize:NAME_SIZE];
     [self.contentView addSubview:_nameLabel];
 }
 
@@ -44,8 +47,8 @@
     [_photoView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(@(STANDARD_MARGIN));
         make.top.equalTo(@(STANDARD_MARGIN));
-        make.width.equalTo(@(30.0f));
-        make.height.equalTo(@(30.0f));
+        make.width.equalTo(@(IMAGE_DIAMETER));
+        make.height.equalTo(@(IMAGE_DIAMETER));
     }];
     
     [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -55,6 +58,14 @@
     }];
     
     [super updateConstraints];
+}
+
+#pragma mark - Public Methods
+
++ (CGSize)sizeOfCellWithText:(NSString *)text {
+    CGSize textSize = [text sizeWithAttributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:NAME_SIZE] }];
+    CGFloat cellWidth = textSize.width + IMAGE_DIAMETER + STANDARD_MARGIN * 3 + 3.f; // Offset for some extra space
+    return CGSizeMake(cellWidth, CATEGORIES_COLLECTION_VIEW_HEIGHT);
 }
 
 @end

@@ -13,3 +13,4 @@ static const NSString *BASE_URL = @"http://www.khanacademy.org/api/v1";
 static const CGFloat NAVBAR_HEIGHT = 64.0f;
 static const CGFloat STANDARD_MARGIN = 10.0f;
 static const CGFloat LABEL_CORNER_RADIUS = 5.0f;
+static const CGFloat CATEGORIES_COLLECTION_VIEW_HEIGHT = 50.0f;

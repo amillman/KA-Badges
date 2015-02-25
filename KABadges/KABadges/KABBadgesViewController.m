@@ -201,6 +201,10 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    KABCategory *category = self.categories[indexPath.row];
+    return [KABCategoryCollectionViewCell sizeOfCellWithText:category.name];
+}
 
 #pragma mark - Private Methods
 
