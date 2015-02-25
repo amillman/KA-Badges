@@ -13,4 +13,5 @@
 @property (strong, nonatomic) UILabel *nameLabel;
 @property (strong, nonatomic) UILabel *detailsLabel;
 @property (strong, nonatomic) UILabel *pointValueLabel;
++ (CGFloat)cellHeight;
 @end

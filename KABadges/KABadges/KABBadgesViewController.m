@@ -77,7 +77,6 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             
             [strongSelf.categories addObject:category];
         }
-        [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf _getAllBadges];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -108,6 +107,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
             [correspondingCategory.badges addObject:badge];
         }
         [strongSelf.view.tableView reloadData];
+        [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf.view.indicatorView stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -157,7 +157,7 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 90;
+    return [KABBadgeTableViewCell cellHeight];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -199,6 +199,8 @@ static NSString *BADGE_CELL_IDENTIFIER = @"BadgeCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSIndexPath *destinationPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
+    [self.view.tableView scrollToRowAtIndexPath:destinationPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
