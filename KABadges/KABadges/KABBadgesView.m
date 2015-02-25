@@ -49,7 +49,7 @@
     }];
     
     [_categoriesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(CATEGORIES_COLLECTION_VIEW_HEIGHT));
+        make.height.equalTo(@([KABCategoryCollectionViewCell cellHeight]));
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(@0);

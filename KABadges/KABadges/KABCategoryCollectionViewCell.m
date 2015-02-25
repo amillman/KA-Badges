@@ -13,6 +13,7 @@
 
 @implementation KABCategoryCollectionViewCell
 
+static const CGFloat CELL_HEIGHT = 50.0f;
 static const CGFloat IMAGE_DIAMETER = 30.0f;
 static const CGFloat NAME_SIZE = 14.0f;
 
@@ -62,10 +63,14 @@ static const CGFloat NAME_SIZE = 14.0f;
 
 #pragma mark - Public Methods
 
++ (CGFloat)cellHeight {
+    return CELL_HEIGHT;
+}
+
 + (CGSize)sizeOfCellWithText:(NSString *)text {
     CGSize textSize = [text sizeWithAttributes:@{ NSFontAttributeName:[UIFont systemFontOfSize:NAME_SIZE] }];
     CGFloat cellWidth = textSize.width + IMAGE_DIAMETER + STANDARD_MARGIN * 3 + 3.f; // Offset for some extra space
-    return CGSizeMake(cellWidth, CATEGORIES_COLLECTION_VIEW_HEIGHT);
+    return CGSizeMake(cellWidth, CELL_HEIGHT);
 }
 
 @end
