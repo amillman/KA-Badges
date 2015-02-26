@@ -26,6 +26,7 @@
 >
 @property (strong, nonatomic) KABBadgesView *view;
 @property (strong, nonatomic) NSMutableArray *categories;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation KABBadgesViewController
@@ -50,6 +51,9 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     self.view.categoriesCollectionView.delegate = self;
     self.view.categoriesCollectionView.dataSource = self;
     
+    [self.refreshControl addTarget:self action:@selector(_getAllData) forControlEvents:UIControlEventValueChanged];
+    [self.view.tableView addSubview:self.refreshControl];
+    
     [self _getAllData];
 }
 
@@ -66,6 +70,7 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     [[AFHTTPRequestOperationManager manager] GET:categoriesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         
+        strongSelf.categories = [[NSMutableArray alloc] init];
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             KABCategory *category = [[KABCategory alloc] init];
@@ -109,6 +114,7 @@ static NSString *BADGES_ENDPOINT = @"/badges";
         [strongSelf.view.tableView reloadData];
         [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf.view.indicatorView stopAnimating];
+        [strongSelf.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         [strongSelf _alertError:@"Could not load badges."];
@@ -231,6 +237,13 @@ static NSString *BADGES_ENDPOINT = @"/badges";
         _categories = [[NSMutableArray alloc] init];
     }
     return _categories;
+}
+
+- (UIRefreshControl *)refreshControl {
+    if (!_refreshControl) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+    }
+    return _refreshControl;
 }
 
 @end

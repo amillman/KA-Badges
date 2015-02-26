@@ -34,6 +34,10 @@
     _tableView.tableFooterView = [[UIView alloc] init];
     [self addSubview:_tableView];
     
+    _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [_indicatorView startAnimating];
+    [_tableView addSubview:_indicatorView];
+    
     _categoriesCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[self _createCategoriesCollectionViewLayout]];
     _categoriesCollectionView.scrollsToTop = NO;
     _categoriesCollectionView.backgroundColor = [UIColor whiteColor];
@@ -44,10 +48,6 @@
     _collectionViewBorder = [[UIView alloc] init];
     _collectionViewBorder.backgroundColor = [UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:1];
     [self addSubview:_collectionViewBorder];
-    
-    _indicatorView =  [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [_indicatorView startAnimating];
-    [self addSubview:_indicatorView];
 }
 
 - (void)updateConstraints {
@@ -57,6 +57,11 @@
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(_categoriesCollectionView.mas_top);
+    }];
+    
+    [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@(STANDARD_MARGIN * 2));
+        make.centerX.equalTo(self.mas_centerX);
     }];
     
     [_categoriesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,11 +75,6 @@
         make.leading.equalTo(@0);
         make.trailing.equalTo(@0);
         make.bottom.equalTo(_categoriesCollectionView.mas_top);
-    }];
-    
-    [_indicatorView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(NAVBAR_HEIGHT + STANDARD_MARGIN * 2));
-        make.centerX.equalTo(self.mas_centerX);
     }];
     
     [super updateConstraints];
