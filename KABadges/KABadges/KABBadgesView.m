@@ -29,7 +29,7 @@
 - (void)_createSubviews {
     
     _tableView = [[UITableView alloc] init];
-    _tableView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
+    _tableView.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
     _tableView.scrollsToTop = YES;
     _tableView.tableFooterView = [[UIView alloc] init];
     [self addSubview:_tableView];
