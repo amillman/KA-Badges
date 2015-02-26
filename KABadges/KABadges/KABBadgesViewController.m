@@ -113,6 +113,7 @@ static NSString *BADGES_ENDPOINT = @"/badges";
         [strongSelf.view.tableView reloadData];
         [strongSelf.view.categoriesCollectionView reloadData];
         [strongSelf.view.indicatorView stopAnimating];
+        [strongSelf.refreshControl endRefreshing];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         [strongSelf _alertError:@"Could not load badges."];
