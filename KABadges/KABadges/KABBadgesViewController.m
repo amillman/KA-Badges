@@ -70,6 +70,7 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     [[AFHTTPRequestOperationManager manager] GET:categoriesURL parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         
+        strongSelf.categories = [[NSMutableArray alloc] init];
         NSArray *responseCategories = responseObject;
         for(NSDictionary *categoryJSON in responseCategories) {
             KABCategory *category = [[KABCategory alloc] init];
