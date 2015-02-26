@@ -26,6 +26,7 @@
 >
 @property (strong, nonatomic) KABBadgesView *view;
 @property (strong, nonatomic) NSMutableArray *categories;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation KABBadgesViewController
@@ -49,6 +50,9 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     self.view.tableView.dataSource = self;
     self.view.categoriesCollectionView.delegate = self;
     self.view.categoriesCollectionView.dataSource = self;
+    
+    [self.refreshControl addTarget:self action:@selector(_getAllData) forControlEvents:UIControlEventValueChanged];
+    [self.view.tableView addSubview:self.refreshControl];
     
     [self _getAllData];
 }
@@ -231,6 +235,13 @@ static NSString *BADGES_ENDPOINT = @"/badges";
         _categories = [[NSMutableArray alloc] init];
     }
     return _categories;
+}
+
+- (UIRefreshControl *)refreshControl {
+    if (!_refreshControl) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+    }
+    return _refreshControl;
 }
 
 @end
