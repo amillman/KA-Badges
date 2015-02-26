@@ -19,7 +19,6 @@ static const CGFloat CELL_HEIGHT = 90.0f;
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1];
         [self setClipsToBounds:YES];
         [self _createSubviews];
         [self setNeedsUpdateConstraints];
