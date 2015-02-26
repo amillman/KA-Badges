@@ -43,6 +43,7 @@ static NSString *BADGES_ENDPOINT = @"/badges";
     [super viewDidLoad];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TitleImage"]];
+    [self _setupRightBarButtonItems];
     
     self.view.tableView.delegate = self;
     self.view.tableView.dataSource = self;
@@ -206,6 +207,17 @@ static NSString *BADGES_ENDPOINT = @"/badges";
 }
 
 #pragma mark - Private Methods
+
+- (void)_setupRightBarButtonItems {
+    UIBarButtonItem *infoButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Info" style:UIBarButtonItemStylePlain target:self action:@selector(_alertAppInfo)];
+    [self.navigationItem setRightBarButtonItem:infoButtonItem];
+}
+
+- (void)_alertAppInfo {
+    NSString *info = @"Browse through all the badges, quickly travel to any category using the navigator at the bottom!\n\nExternal pods/libraries used:\n1) AFNetworking (for API calls)\n2) Masonry (for Autolayout)";
+    UIAlertView *infoView = [[UIAlertView alloc] initWithTitle:@"KABadges" message:info delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [infoView show];
+}
 
 - (void)_alertError:(NSString *)message {
     UIAlertView *errorView = [[UIAlertView alloc] initWithTitle:@"Error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
